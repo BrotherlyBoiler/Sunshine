@@ -38,6 +38,16 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase sqLiteDatabase) {
+		// Create a table to hold location. A location consists of the string supplied in the
+		// location setting, the setting name, the latitude and longitude.
+		final String SQL_CREATE_LOCATION_TABLE = "CREATE TABLE " + LocationEntry.TABLE_NAME + " (" +
+				LocationEntry._ID + " Integer PRIMARY KEY," +
+				LocationEntry.COLUMN_LOCATION_SETTING + " TEXT UNIQUE NOT NULL, " +
+				LocationEntry.COLUMN_CITY_NAME + " TEXT NOT NULL, " +
+				LocationEntry.COLUMN_COORD_LAT + " REAL NOT NULL, " +
+				LocationEntry.COLUMN_COORD_LONG + " REAL NOT NULL " +
+				");";
+
 		final String SQL_CREATE_WEATHER_TABLE = "CREATE TABLE " + WeatherEntry.TABLE_NAME + " (" +
 				// Why AutoIncrement here, and not above?
 				// Unique keys will be auto-generated in either case.  But for weather
