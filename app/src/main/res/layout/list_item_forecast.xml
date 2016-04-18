@@ -5,4 +5,5 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
+          android:scrollbars="none"
     android:id="@+id/list_item_forecast_textview" />

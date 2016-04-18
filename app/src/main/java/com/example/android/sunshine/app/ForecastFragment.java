@@ -84,7 +84,6 @@ public class ForecastFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
-
 		// Now that we have some dummy forecast data, create an ArrayAdapter.
 		// The ArrayAdapter will take data from a source (like our dummy forecast) and
 		// use it to populate the ListView it's attached to.
