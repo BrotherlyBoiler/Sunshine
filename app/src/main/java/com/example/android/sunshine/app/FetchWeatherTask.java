@@ -138,7 +138,10 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
                   WeatherContract.LocationEntry.CONTENT_URI,
                   locationValues
             );
+
+            locationId = ContentUris.parseId(insertedUri);
         }
+
 
         locationCursor.close();
         return locationId;
