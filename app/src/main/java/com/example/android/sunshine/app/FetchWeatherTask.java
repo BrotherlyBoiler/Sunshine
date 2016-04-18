@@ -15,6 +15,7 @@
  */
 package com.example.android.sunshine.app;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
