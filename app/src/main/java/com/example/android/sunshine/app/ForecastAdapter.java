@@ -15,6 +15,9 @@ import android.widget.TextView;
  */
 public class ForecastAdapter extends CursorAdapter {
 
+    // Flag to determine if a separate view for "today" should be used.
+    private boolean mUseTodayLayout;
+
     private static final int VIEW_TYPE_COUNT = 2;
     private static final int VIEW_TYPE_TODAY = 0;
     private static final int VIEW_TYPE_FUTURE_DAY = 1;
@@ -42,9 +45,13 @@ public class ForecastAdapter extends CursorAdapter {
         super(context, c, flags);
     }
 
+    public void setUseTodayLayout(boolean useTodayLayout) {
+        mUseTodayLayout = useTodayLayout;
+    }
+
     @Override
     public int getItemViewType(int position) {
-        return position == 0 ? VIEW_TYPE_TODAY : VIEW_TYPE_FUTURE_DAY;
+        return (position == 0 && mUseTodayLayout) ? VIEW_TYPE_TODAY : VIEW_TYPE_FUTURE_DAY;
     }
 
     @Override
