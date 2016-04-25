@@ -15,9 +15,19 @@
  */
 package com.example.android.sunshine.app;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -40,7 +50,26 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         getSupportActionBar().setLogo(R.drawable.ic_logo);
         getSupportActionBar().setTitle("");
 
-        mLocation = Utility.getPreferredLocation(this);
+        // Ask user if they want the current location's weather to be displayed
+        // instead of saved location
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Display weather for current location?");
+
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mLocation = getUserCurrentLocation();
+            }
+        });
+
+        alertDialog.setNegativeButton("No", new AlertDialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mLocation = Utility.getPreferredLocation(MainActivity.this);
+            }
+        });
+
+        alertDialog.create().show();
 
         setContentView(R.layout.activity_main);
         if (findViewById(R.id.weather_detail_container) != null) {
@@ -64,6 +93,39 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         ForecastFragment forecastFragment = ((ForecastFragment) getSupportFragmentManager()
               .findFragmentById(R.id.fragment_forecast));
         forecastFragment.setUseTodayLayout(!mTwoPane);
+    }
+
+    private String getUserCurrentLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+
+            }
+        };
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            if (checkCallingOrSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                  PackageManager.PERMISSION_GRANTED) {
+                request
+            }
+        }
+        locationManager.requestLocationUpdates("gps", 0, 100, locationListener);
     }
 
     @Override
