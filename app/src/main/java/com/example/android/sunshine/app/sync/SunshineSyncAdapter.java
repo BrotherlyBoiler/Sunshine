@@ -87,8 +87,8 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         int numDays = 14;
 
         try {
-            // Construct the URL for the OpenWeatherMap query
-            // Possible parameters are avaiable at OWM's forecast API page, at
+            // Construct the URL for the OpenWeatherMap query.
+            // Possible parameters are available at OpenWeatherMap's forecast API page, at
             // http://openweathermap.org/API#forecast
             final String FORECAST_BASE_URL =
                   "http://api.openweathermap.org/data/2.5/forecast/daily?";
@@ -96,14 +96,14 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             final String FORMAT_PARAM = "mode";
             final String UNITS_PARAM = "units";
             final String DAYS_PARAM = "cnt";
-            final String APPID_PARAM = "APPID";
+            final String APP_ID_PARAM = "APPID";
 
             Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                   .appendQueryParameter(QUERY_PARAM, locationQuery)
                   .appendQueryParameter(FORMAT_PARAM, format)
                   .appendQueryParameter(UNITS_PARAM, units)
                   .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
-                  .appendQueryParameter(APPID_PARAM, BuildConfig.OPEN_WEATHER_MAP_API_KEY)
+                  .appendQueryParameter(APP_ID_PARAM, BuildConfig.OPEN_WEATHER_MAP_API_KEY)
                   .build();
 
             URL url = new URL(builtUri.toString());
