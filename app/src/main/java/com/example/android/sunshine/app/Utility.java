@@ -39,14 +39,12 @@ public class Utility {
               .equals(context.getString(R.string.pref_units_metric));
     }
 
-    static String formatTemperature(Context context, double temperature, boolean isMetric) {
-        double temp;
-        if (!isMetric) {
-            temp = 9 * temperature / 5 + 32;
-        } else {
-            temp = temperature;
-        }
-        return context.getString(R.string.format_temperature, temp);
+    public static String formatTemperature(Context context, double temperature) {
+        // Data is stored in Celsius by default. If user prefers Fahrenheit,
+        // convert the values here.
+        if (!isMetric(context))
+            temperature = (temperature * 1.8) + 32;
+        return context.getString(R.string.format_temperature, temperature);
     }
 
     static String formatDate(long dateInMilliseconds) {
