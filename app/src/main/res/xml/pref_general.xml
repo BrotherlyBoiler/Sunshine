@@ -11,10 +11,15 @@
         android:title="@string/pref_location_label"/>
 
     <ListPreference
-        android:title="@string/pref_units_label"
-        android:key="@string/pref_units_key"
         android:defaultValue="@string/pref_units_metric"
+        android:entries="@array/pref_units_options"
         android:entryValues="@array/pref_units_values"
-        android:entries="@array/pref_units_options" />
+        android:key="@string/pref_units_key"
+        android:title="@string/pref_units_label"/>
+
+    <CheckBoxPreference
+        android:defaultValue="@string/pref_enable_notifications_default"
+        android:key="@string/pref_enable_notifications_key"
+        android:title="@string/pref_enable_notifications_label"/>
 
 </PreferenceScreen>
